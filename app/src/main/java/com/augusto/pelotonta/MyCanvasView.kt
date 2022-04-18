@@ -28,20 +28,32 @@ class MyCanvasView (context: Context) : View(context){
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        if (!start) {
-            start = true
-        } else {
-            posX = event!!.x
-            posY = event.y
-            invalidate()
+        when (event!!.action) {
+            MotionEvent.ACTION_DOWN -> {
+                posX = event.x
+                posY = event.y
+                invalidate()
+                return true
+            }
+            MotionEvent.ACTION_MOVE -> {
+                posX = event.x
+                posY = event.y
+                start = false
+                invalidate()
+            }
+            MotionEvent.ACTION_UP -> {
+                start = true
+            }
         }
         return super.onTouchEvent(event)
     }
 
     override fun onSizeChanged(width: Int, height: Int, oldwidth: Int, oldheight: Int) {
         super.onSizeChanged(width, height, oldwidth, oldheight)
-        posX = width/2f
-        posY = height/2f
+        if (oldwidth == 0 && oldheight == 0) {
+            posX = width/2f
+            posY = height/2f
+        }
         viewWidth = width
         viewHeight = height
     }
