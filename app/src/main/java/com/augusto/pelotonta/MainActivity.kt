@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         sensorManager.unregisterListener(this)
         super.onPause()
     }
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onSensorChanged(event: SensorEvent?) {
         if (start) {
@@ -52,10 +53,14 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 if (RADIUS <= tempPosX && tempPosX <= viewWidth - RADIUS) {
                     posX = tempPosX
                     vibX = false
-                // Si no, vibro una vez.
+                // Si no, me fijo si está en el margen y además vibro una vez.
                 } else {
+                    when {
+                        tempPosX <= RADIUS -> posX = RADIUS
+                        tempPosX >= viewWidth - RADIUS -> posX = viewWidth.toFloat() - RADIUS
+                    }
                     if (!vibX) {
-                        vibrator.vibrate(VibrationEffect.createOneShot(5, VibrationEffect.DEFAULT_AMPLITUDE))
+                        vibrate()
                         vibX = true
                     }
                 }
@@ -64,9 +69,12 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                     posY = tempPosY
                     vibY = false
                 } else {
+                    when {
+                        tempPosY <= RADIUS -> posY = RADIUS
+                        tempPosY >= viewHeight - RADIUS -> posY = viewHeight.toFloat() - RADIUS
+                    }
                     if (!vibY) {
-                        vibrator.vibrate(VibrationEffect.createOneShot(5,
-                            VibrationEffect.DEFAULT_AMPLITUDE))
+                        vibrate()
                         vibY = true
                     }
                 }
@@ -75,5 +83,10 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     }
 
     override fun onAccuracyChanged(event: Sensor?, p1: Int) {
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun vibrate() {
+        vibrator.vibrate(VibrationEffect.createOneShot(5, VibrationEffect.DEFAULT_AMPLITUDE))
     }
 }
