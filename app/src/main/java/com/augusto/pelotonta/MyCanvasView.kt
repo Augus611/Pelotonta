@@ -6,6 +6,7 @@ import android.graphics.Paint
 import android.view.MotionEvent
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
+import java.util.*
 
 const val RADIUS = 128f
 var posX = 0f
@@ -43,6 +44,7 @@ class MyCanvasView (context: Context) : View(context){
             }
             MotionEvent.ACTION_UP -> {
                 start = true
+                calendar0 = Calendar.getInstance()
             }
         }
         return super.onTouchEvent(event)
