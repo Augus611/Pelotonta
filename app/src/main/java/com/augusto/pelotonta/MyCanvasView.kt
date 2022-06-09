@@ -24,12 +24,13 @@ class MyCanvasView (context: Context) : View(context){
     }
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        canvas!!.drawCircle(posX, posY, RADIUS, paint)
+        canvas?.drawColor(ResourcesCompat.getColor(resources, R.color.black, null))
+        canvas?.drawCircle(posX, posY, RADIUS, paint)
         invalidate()
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        when (event!!.action) {
+        when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
                 posX = event.x
                 posY = event.y

@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onSensorChanged(event: SensorEvent?) {
         if (start) {
-            if (event!!.sensor.type == Sensor.TYPE_ACCELEROMETER) {
+            if (event?.sensor?.type == Sensor.TYPE_ACCELEROMETER) {
                 // Calculo el instante de tiempo
                 val calendarf = Calendar.getInstance()
                 time0 = calendar0.timeInMillis.toFloat()
