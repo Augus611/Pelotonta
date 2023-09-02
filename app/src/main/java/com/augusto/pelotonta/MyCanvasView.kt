@@ -17,22 +17,23 @@ var start = false
 
 class MyCanvasView (context: Context) : View(context){
     private val drawColor = ResourcesCompat.getColor(resources, R.color.purple_500, null)
-    private val textColor = ResourcesCompat.getColor(resources, R.color.white, null)
     private val paint = Paint().apply {
         color = drawColor
         isAntiAlias = true
         isDither = true
     }
-    private val textPaint = Paint().apply {
-        color = textColor
-        textSize = 50f
-    }
+//    This is for testing:
+//    private val textColor = ResourcesCompat.getColor(resources, R.color.white, null)
+//    private val textPaint = Paint().apply {
+//        color = textColor
+//        textSize = 50f
+//    }
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         canvas?.drawColor(ResourcesCompat.getColor(resources, R.color.black, null))
         canvas?.drawCircle(posX, posY, RADIUS, paint)
-        val ballProperties = "vx=$vfx,vy=$vfy"
-        canvas?.drawText(ballProperties, 50f, 100f, textPaint)
+//        val testingText = "vx=$vfx,vy=$vfy"
+//        canvas?.drawText(testingText, 50f, 100f, textPaint)
         invalidate()
     }
 
